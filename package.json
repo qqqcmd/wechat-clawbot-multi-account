@@ -1,0 +1,105 @@
+﻿{
+  "name": "wechat-clawbot-multi-account",
+  "version": "0.9.10-multi.1",
+  "description": "Multi-account patched wechat-clawbot v0.9.10 — bind multiple WeChat accounts to one DSH.",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "plugin",
+    "wechat",
+    "weixin",
+    "clawbot",
+    "openclaw"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qqqcmd/wechat-clawbot-multi-account.git"
+  },
+  "homepage": "https://github.com/qqqcmd/wechat-clawbot-multi-account#readme",
+  "bugs": {
+    "url": "https://github.com/qqqcmd/wechat-clawbot-multi-account/issues"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./cli": {
+      "types": "./lib/types/cli.d.ts",
+      "default": "./lib/cli.js"
+    },
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json",
+    "./client": "./lib/client.js"
+  },
+  "bin": {
+    "clawbot": "lib/cli.js",
+    "clawbot-mcp": "lib/mcp-cli.js"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "wechat-clawbot-INSTALL.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && cp -f src/client.js lib/client.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:codex": "npm run build && node --test test/codex-bridge.mjs",
+    "clean": "rm -rf lib",
+    "test:memory": "npm run build && node test/memory-eval-run.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "slots",
+        "settingsScope"
+      ]
+    }
+  },
+  "ilink_appid": "bot",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "qrcode-terminal": "^0.12.0",
+    "ws": "^8.22.0",
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.4",
+    "@deepseek-ai/dsh-agent": "^0.1.7-rc.1 || ^0.2.0-rc.1",
+    "@deepseek-ai/dsh-attachment": "^0.1.7-rc.1 || ^0.2.0-rc.1",
+    "@deepseek-ai/dsh-llm": "^0.1.7-rc.1 || ^0.2.0-rc.1",
+    "@deepseek-ai/dsh-session": "^0.1.7-rc.1 || ^0.2.0-rc.1",
+    "@deepseek-ai/dsh-tools": "^0.1.7-rc.1 || ^0.2.0-rc.1",
+    "@deepseek-ai/dsh-user-approval": "^0.1.7-rc.1 || ^0.2.0-rc.1",
+    "@deepseek-ai/dsh-user-questions": "^0.1.7-rc.1 || ^0.2.0-rc.1",
+    "@deepseek-ai/schemastery": "^3.18.4"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.4",
+    "@deepseek-ai/dsh-agent": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-llm": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-session": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-tools": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-user-approval": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-user-questions": "0.2.0-rc.2",
+    "@deepseek-ai/schemastery": "3.18.4",
+    "@types/node": "^24.0.0",
+    "@types/ws": "^8.18.2",
+    "typescript": "^5.8.0"
+  }
+}
